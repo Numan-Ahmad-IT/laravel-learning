@@ -1,1818 +1,228 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Flexy Free Bootstrap Admin Template by WrapPixel</title>
+  <title>Admin Dashboard - Online Shopping Website</title>
   <link rel="shortcut icon" type="image/png" href="{{asset('admin/assets/images/logos/favicon.png')}}" />
   <link rel="stylesheet" href="{{asset('admin/assets/css/styles.min.css')}}" />
-</head>
-<style> 
-    .logout-button:hover {
-        background-color: yellowgreen;
-        color: blue;
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .logout-button {
+        background-color: #dc3545;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        border: none;
+        display: inline-block;
     }
-</style>
-
+    .logout-button:hover {
+        background-color: #bb2d3b;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        color: white;
+        text-decoration: none;
+    }
+    .sidebar-item.active .sidebar-link {
+        background-color: rgba(255,255,255,0.1);
+        border-left: 3px solid #0d6efd;
+    }
+    .nav-small-cap {
+        padding: 15px 20px 5px;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #6c757d;
+        font-weight: 600;
+    }
+    .sidebar-divider {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin: 10px 0;
+    }
+    .dashboard-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: none;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .sidebar-nav {
+        padding-bottom: 20px;
+    }
+    .sidebar-collapse-btn {
+        display: none;
+    }
+    @media (max-width: 992px) {
+        .sidebar-collapse-btn {
+            display: block;
+        }
+        .sidebar-collapsed .left-sidebar {
+            margin-left: -250px;
+        }
+        .main-content-expanded {
+            margin-left: 0 !important;
+        }
+    }
+  </style>
+</head>
 <body>
-  <!--  Body Wrapper -->
+  <!-- Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
 
-    <!--  App Topstrip -->
-    <div class="app-topstrip bg-dark py-6 px-3 w-100 d-lg-flex align-items-center justify-content-between">
+    <!-- App Topstrip -->
+    <div class="app-topstrip bg-dark py-2 px-3 w-100 d-lg-flex align-items-center justify-content-between">
       <div class="d-flex align-items-center justify-content-center gap-5 mb-2 mb-lg-0">
         <a class="d-flex justify-content-center" href="#">
           <img src="{{asset('admin/assets/images/logos/logo-wrappixel.svg')}}" alt="" width="150">
         </a>
-
-        
       </div>
 
       <div class="d-lg-flex align-items-center gap-2">
-        <h3 class="text-white mb-2 mb-lg-0 fs-5 text-center">Online Shopping Website</h3>
-        <div class="d-flex align-items-center justify-content-center gap-2">
-          
-          <div class="dropdown d-flex">
-            <a class="btn btn-primary d-flex align-items-center gap-1 " href="javascript:void(0)" id="drop4"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="ti ti-shopping-cart fs-5"></i>
-              Buy Now
-              <i class="ti ti-chevron-down fs-5"></i>
-            </a>
+        <h3 class="text-white mb-2 mb-lg-0 fs-5 text-center">Online Shopping Admin Panel</h3>
+      </div>
+      
+      <div class="d-flex align-items-center gap-3">
+        <div class="dropdown d-flex">
+          <a class="btn btn-primary d-flex align-items-center gap-1" href="javascript:void(0)" id="drop4"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="ti ti-shopping-cart fs-5"></i>
+            Quick Actions
+            <i class="ti ti-chevron-down fs-5"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="drop4">
+            <a class="dropdown-item" href="#"><i class="ti ti-plus me-2"></i> Add Product</a>
+            <a class="dropdown-item" href="#"><i class="ti ti-users me-2"></i> View Customers</a>
+            <a class="dropdown-item" href="#"><i class="ti ti-discount me-2"></i> Create Promotion</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#"><i class="ti ti-settings me-2"></i> Settings</a>
           </div>
         </div>
-      </div>
-      <div>
+        
         <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="dropdown-item" style="background: none; border: none; padding: 0;">
-                        <i class="fas fa-sign-out-alt me-1"></i> <span class="logout-button" style="color:white;font-size:15px;border:5px solid red;border-radius:10px;padding-left:20px;padding-right:20px;padding-top:5px;padding-bottom:2px">Logout</span>
-                </button>
-            </form>
+          @csrf
+          <button type="submit" class="btn btn-danger d-flex align-items-center">
+            <i class="fas fa-sign-out-alt me-2"></i> Logout
+          </button>
+        </form>
       </div>
-
     </div>
+
     <!-- Sidebar Start -->
     <aside class="left-sidebar">
       <!-- Sidebar scroll-->
       <div>
-        <div class="brand-logo d-flex align-items-center justify-content-between">
+        <div class="brand-logo d-flex align-items-center justify-content-between p-3">
           <a href="./index.html" class="text-nowrap logo-img">
-            <img src="{{asset('admin/assets/images/logos/logo.svg')}}" alt="" />
+            <img src="{{asset('admin/assets/images/logos/logo.svg')}}" alt="" width="30" />
+            <span class="ms-2 d-none d-md-inline text-white">Admin Panel</span>
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-6"></i>
           </div>
         </div>
+        
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
           <ul id="sidebarnav">
             <li class="nav-small-cap">
-              <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
-              <span class="hide-menu">Home</span>
+              <i class="fas fa-chart-line me-2"></i>
+              <span class="hide-menu">Dashboard</span>
             </li>
-            <li class="sidebar-item">
+            <li class="sidebar-item active">
               <a class="sidebar-link" href="./index.html" aria-expanded="false">
-                <i class="ti ti-atom"></i>
-                <span class="hide-menu">Dashboard</span>
+                <i class="ti ti-dashboard"></i>
+                <span class="hide-menu">Overview</span>
               </a>
             </li>
-            <!-- ---------------------------------- -->
-            <!-- Dashboard -->
-            <!-- ---------------------------------- -->
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-aperture"></i>
-                  </span>
-                  <span class="hide-menu">Analytical</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-shopping-cart"></i>
-                  </span>
-                  <span class="hide-menu">eCommerce</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between has-arrow" href="javascript:void(0)" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-layout-grid"></i>
-                  </span>
-                  <span class="hide-menu">Front Pages</span>
-                </div>
-                
-              </a>
-              <ul aria-expanded="false" class="collapse first-level">
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Homepage</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">About Us</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Blog</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Blog Details</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Contact Us</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Portfolio</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Pricing</span>
-                    </div>
-                    
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <li>
-              <span class="sidebar-divider lg"></span>
-            </li>
+            
             <li class="nav-small-cap">
-              <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
-              <span class="hide-menu">Apps</span>
+              <i class="fas fa-shopping-cart me-2"></i>
+              <span class="hide-menu">E-Commerce</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between has-arrow" href="javascript:void(0)" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-basket"></i>
-                  </span>
-                  <span class="hide-menu">Ecommerce</span>
-                </div>
-                
-              </a>
-              <ul aria-expanded="false" class="collapse first-level">
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Shop</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Details</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">List</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Checkout</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Add Product</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Edit Product</span>
-                    </div>
-                    
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between has-arrow" href="javascript:void(0)" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-chart-donut-3"></i>
-                  </span>
-                  <span class="hide-menu">Blog</span>
-                </div>
-                
-              </a>
-              <ul aria-expanded="false" class="collapse first-level">
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Blog Posts</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Blog Details</span>
-                    </div>
-                    
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#"
-                aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-user-circle"></i>
-                  </span>
-                  <span class="hide-menu">User Profile</span>
-                </div>
-                
+              <a class="sidebar-link" href="#" aria-expanded="false">
+                <i class="ti ti-package"></i>
+                <span class="hide-menu">Products</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-mail"></i>
-                  </span>
-                  <span class="hide-menu">Email</span>
-                </div>
-                
+              <a class="sidebar-link" href="#" aria-expanded="false">
+                <i class="ti ti-category"></i>
+                <span class="hide-menu">Categories</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-calendar"></i>
-                  </span>
-                  <span class="hide-menu">Calendar</span>
-                </div>
-                
+              <a class="sidebar-link" href="#" aria-expanded="false">
+                <i class="ti ti-shopping-cart"></i>
+                <span class="hide-menu">Orders</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-layout-kanban"></i>
-                  </span>
-                  <span class="hide-menu">Kanban</span>
-                </div>
-                
+              <a class="sidebar-link" href="#" aria-expanded="false">
+                <i class="ti ti-discount"></i>
+                <span class="hide-menu">Discounts</span>
               </a>
             </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-message-dots"></i>
-                  </span>
-                  <span class="hide-menu">Chat</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-notes"></i>
-                  </span>
-                  <span class="hide-menu">Notes</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-phone"></i>
-                  </span>
-                  <span class="hide-menu">Contact Table</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-list-details"></i>
-                  </span>
-                  <span class="hide-menu">Contact List</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-file-text"></i>
-                  </span>
-                  <span class="hide-menu">Invoice</span>
-                </div>
-                
-              </a>
-            </li>
-
-            <li>
-              <span class="sidebar-divider lg"></span>
-            </li>
+            
             <li class="nav-small-cap">
-              <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
-              <span class="hide-menu">Pages</span>
+              <i class="fas fa-users me-2"></i>
+              <span class="hide-menu">Customers</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-accessible"></i>
-                  </span>
-                  <span class="hide-menu">Animation</span>
-                </div>
-                
+              <a class="sidebar-link" href="#" aria-expanded="false">
+                <i class="ti ti-user"></i>
+                <span class="hide-menu">Manage Customers</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#"
-                aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-user-search"></i>
-                  </span>
-                  <span class="hide-menu">Search Result</span>
-                </div>
-                
+              <a class="sidebar-link" href="#" aria-expanded="false">
+                <i class="ti ti-message-circle"></i>
+                <span class="hide-menu">Reviews</span>
               </a>
             </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-brand-google-photos"></i>
-                  </span>
-                  <span class="hide-menu">Gallery</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-masks-theater"></i>
-                  </span>
-                  <span class="hide-menu">Treeview</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-arrows-maximize"></i>
-                  </span>
-                  <span class="hide-menu">Block-Ui</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#"
-                aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-sort-ascending"></i>
-                  </span>
-                  <span class="hide-menu">Session Timeout</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-currency-dollar"></i>
-                  </span>
-                  <span class="hide-menu">Pricing</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-help"></i>
-                  </span>
-                  <span class="hide-menu">FAQ</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#"
-                aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-user-circle"></i>
-                  </span>
-                  <span class="hide-menu">Account Setting</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-app-window"></i>
-                  </span>
-                  <span class="hide-menu">Landingpage</span>
-                </div>
-                
-              </a>
-            </li>
-
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between has-arrow" href="javascript:void(0)" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-layout"></i>
-                  </span>
-                  <span class="hide-menu">Widgets</span>
-                </div>
-                
-              </a>
-              <ul aria-expanded="false" class="collapse first-level">
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Cards</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Banner</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Charts</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Feeds</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Apps</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Data</span>
-                    </div>
-                    
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-
-            <li>
-              <span class="sidebar-divider lg"></span>
-            </li>
+            
             <li class="nav-small-cap">
-              <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
-              <span class="hide-menu">UI</span>
+              <i class="fas fa-chart-pie me-2"></i>
+              <span class="hide-menu">Analytics</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
-                <i class="ti ti-layers-subtract"></i>
-                <span class="hide-menu">Buttons</span>
+              <a class="sidebar-link" href="#" aria-expanded="false">
+                <i class="ti ti-chart-bar"></i>
+                <span class="hide-menu">Sales Reports</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
-                <i class="ti ti-alert-circle"></i>
-                <span class="hide-menu">Alerts</span>
+              <a class="sidebar-link" href="#" aria-expanded="false">
+                <i class="ti ti-traffic-cone"></i>
+                <span class="hide-menu">Traffic Analysis</span>
               </a>
             </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
-                <i class="ti ti-cards"></i>
-                <span class="hide-menu">Card</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-forms.html" aria-expanded="false">
-                <i class="ti ti-file-text"></i>
-                <span class="hide-menu">Forms</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-typography.html" aria-expanded="false">
-                <i class="ti ti-typography"></i>
-                <span class="hide-menu">Typography</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between has-arrow" href="javascript:void(0)" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-layout-grid"></i>
-                  </span>
-                  <span class="hide-menu">Ui Elements</span>
-                </div>
-                
-              </a>
-              <ul aria-expanded="false" class="collapse first-level">
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Accordian</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Badge</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Dropdowns</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Modals</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Tab</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Tooltip & Popover</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Notification</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Progressbar</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Pagination</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Bootstrap UI</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Breadcrumb</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Offcanvas</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Lists</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Grid</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Carousel</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Scrollspy</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Spinner</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Link</span>
-                    </div>
-                    
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between has-arrow" href="javascript:void(0)" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-components"></i>
-                  </span>
-                  <span class="hide-menu">Components</span>
-                </div>
-                
-              </a>
-              <ul aria-expanded="false" class="collapse first-level">
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Sweet Alert</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Nestable</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Noui slider</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Rating</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Toastr</span>
-                    </div>
-                    
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between has-arrow" href="javascript:void(0)" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-cards"></i>
-                  </span>
-                  <span class="hide-menu">Cards</span>
-                </div>
-                
-              </a>
-              <ul aria-expanded="false" class="collapse first-level">
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Basic Cards</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Custom Cards</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Weather Cards</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Draggable Cards</span>
-                    </div>
-                    
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <li>
-              <span class="sidebar-divider lg"></span>
-            </li>
+            
             <li class="nav-small-cap">
-              <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
-              <span class="hide-menu">Forms</span>
+              <i class="fas fa-cog me-2"></i>
+              <span class="hide-menu">Settings</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between has-arrow" href="javascript:void(0)" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-file-text"></i>
-                  </span>
-                  <span class="hide-menu">Elements</span>
-                </div>
-                
-              </a>
-              <ul aria-expanded="false" class="collapse first-level">
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Forms Input</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Input Groups</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Input Grid</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Checkbox & Radios</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Bootstrap Switch</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Select2</span>
-                    </div>
-                    
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between has-arrow" href="javascript:void(0)" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-qrcode"></i>
-                  </span>
-                  <span class="hide-menu">Form Addons</span>
-                </div>
-                
-              </a>
-              <ul aria-expanded="false" class="collapse first-level">
-
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Dropzone</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Form Mask</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Form Typehead</span>
-                    </div>
-                    
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between has-arrow" href="javascript:void(0)" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-files"></i>
-                  </span>
-                  <span class="hide-menu">Forms Inputs</span>
-                </div>
-                
-              </a>
-              <ul aria-expanded="false" class="collapse first-level">
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Basic Form</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Form Horizontal</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Form Actions</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Row Separator</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Form Bordered</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Form Detail</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Striped Rows</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Form Floating Input</span>
-                    </div>
-                    
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between has-arrow" href="javascript:void(0)" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-alert-circle"></i>
-                  </span>
-                  <span class="hide-menu">Validation</span>
-                </div>
-                
-              </a>
-              <ul aria-expanded="false" class="collapse first-level">
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Bootstrap Validation</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Custom Validation</span>
-                    </div>
-                    
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between has-arrow" href="javascript:void(0)" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-file-pencil"></i>
-                  </span>
-                  <span class="hide-menu">Form Pickers</span>
-                </div>
-                
-              </a>
-              <ul aria-expanded="false" class="collapse first-level">
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Colorpicker</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Rangepicker</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">BT Datepicker</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">MT Datepicker</span>
-                    </div>
-                    
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between has-arrow" href="javascript:void(0)" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-dna"></i>
-                  </span>
-                  <span class="hide-menu">Form Editors</span>
-                </div>
-                
-              </a>
-              <ul aria-expanded="false" class="collapse first-level">
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Quill Editor</span>
-                    </div>
-                    
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"  
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Tinymce Edtor</span>
-                    </div>
-                    
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-files"></i>
-                  </span>
-                  <span class="hide-menu">Form Wizard</span>
-                </div>
-                
+              <a class="sidebar-link" href="#" aria-expanded="false">
+                <i class="ti ti-settings"></i>
+                <span class="hide-menu">General Settings</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-topology-star-3"></i>
-                  </span>
-                  <span class="hide-menu">Form Repeater</span>
-                </div>
-                
-              </a>
-            </li>
-
-            <li>
-              <span class="sidebar-divider lg"></span>
-            </li>
-            <li class="nav-small-cap">
-              <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
-              <span class="hide-menu">Bootstrap Tables</span>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-layout-sidebar"></i>
-                  </span>
-                  <span class="hide-menu">Basic Table</span>
-                </div>
-                
+              <a class="sidebar-link" href="#" aria-expanded="false">
+                <i class="ti ti-credit-card"></i>
+                <span class="hide-menu">Payment Methods</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-layout-sidebar"></i>
-                  </span>
-                  <span class="hide-menu">Dark Table</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-layout-sidebar"></i>
-                  </span>
-                  <span class="hide-menu">Sizing Table</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#"
-                aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-layout-sidebar"></i>
-                  </span>
-                  <span class="hide-menu">Coloured Table</span>
-                </div>
-                
-              </a>
-            </li>
-
-            <li>
-              <span class="sidebar-divider lg"></span>
-            </li>
-            <li class="nav-small-cap">
-              <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
-              <span class="hide-menu">Datatables</span>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#"
-                aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-air-conditioning-disabled"></i>
-                  </span>
-                  <span class="hide-menu">Basic</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#"
-                aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-air-conditioning-disabled"></i>
-                  </span>
-                  <span class="hide-menu">API</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#"
-                aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-air-conditioning-disabled"></i>
-                  </span>
-                  <span class="hide-menu">Advanced</span>
-                </div>
-                
-              </a>
-            </li>
-
-            <li>
-              <span class="sidebar-divider lg"></span>
-            </li>
-            <li class="nav-small-cap">
-              <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
-              <span class="hide-menu">Charts</span>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-chart-line"></i>
-                  </span>
-                  <span class="hide-menu">Line Chart</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-chart-area"></i>
-                  </span>
-                  <span class="hide-menu">Area Chart</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-chart-bar"></i>
-                  </span>
-                  <span class="hide-menu">Bar Chart</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-chart-bar"></i>
-                  </span>
-                  <span class="hide-menu">Pie Chart</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#"
-                aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-chart-arcs"></i>
-                  </span>
-                  <span class="hide-menu">Radial Chart</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-chart-radar"></i>
-                  </span>
-                  <span class="hide-menu">Radar Chart</span>
-                </div>
-                
-              </a>
-            </li>
-
-
-            <li>
-              <span class="sidebar-divider lg"></span>
-            </li>
-            <li class="nav-small-cap">
-              <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
-              <span class="hide-menu">Auth</span>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
-                <i class="ti ti-login"></i>
-                <span class="hide-menu">Login</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#"
-                aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-login"></i>
-                  </span>
-                  <span class="hide-menu">Side Login</span>
-                </div>
-                
-              </a>
-            </li>
-
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
-                <i class="ti ti-user-plus"></i>
-                <span class="hide-menu">Register</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#"
-                aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-user-plus"></i>
-                  </span>
-                  <span class="hide-menu">Side Register</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#"
-                aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-rotate"></i>
-                  </span>
-                  <span class="hide-menu">Side Forgot Pwd</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#"
-                aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-rotate"></i>
-                  </span>
-                  <span class="hide-menu">Boxed Forgot Pwd</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#"
-                aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-zoom-code"></i>
-                  </span>
-                  <span class="hide-menu">Side Two Steps</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#"
-                aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-zoom-code"></i>
-                  </span>
-                  <span class="hide-menu">Boxed Two Steps</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#"
-                aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-alert-circle"></i>
-                  </span>
-                  <span class="hide-menu">Error</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#"
-                aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-settings"></i>
-                  </span>
-                  <span class="hide-menu">Maintenance</span>
-                </div>
-                
-              </a>
-            </li>
-
-            <li>
-              <span class="sidebar-divider lg"></span>
-            </li>
-            <li class="nav-small-cap">
-              <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
-              <span class="hide-menu">Extra</span>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link justify-content-between"  
-                href="#" aria-expanded="false">
-                <div class="d-flex align-items-center gap-3">
-                  <span class="d-flex">
-                    <i class="ti ti-mood-smile"></i>
-                  </span>
-                  <span class="hide-menu">Solar Icon</span>
-                </div>
-                
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
-                <i class="ti ti-archive"></i>
-                <span class="hide-menu">Tabler Icon</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
-                <i class="ti ti-file"></i>
-                <span class="hide-menu">Sample Page</span>
+              <a class="sidebar-link" href="#" aria-expanded="false">
+                <i class="ti ti-truck"></i>
+                <span class="hide-menu">Shipping Options</span>
               </a>
             </li>
           </ul>
@@ -1821,30 +231,51 @@
       </div>
       <!-- End Sidebar scroll-->
     </aside>
-    <!--  Sidebar End -->
-    <!--  Main wrapper -->
+    <!-- Sidebar End -->
+    
+    <!-- Main wrapper -->
     <div class="body-wrapper">
-      <!--  Header Start -->
+      <!-- Header Start -->
       <header class="app-header">
         <nav class="navbar navbar-expand-lg navbar-light">
           <ul class="navbar-nav">
             <li class="nav-item d-block d-xl-none">
-              <a class="nav-link sidebartoggler " id="headerCollapse" href="javascript:void(0)">
+              <a class="nav-link sidebartoggler" id="headerCollapse" href="javascript:void(0)">
                 <i class="ti ti-menu-2"></i>
               </a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link " href="javascript:void(0)" id="drop1" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link" href="javascript:void(0)" id="drop1" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="ti ti-bell"></i>
                 <div class="notification bg-primary rounded-circle"></div>
               </a>
               <div class="dropdown-menu dropdown-menu-animate-up" aria-labelledby="drop1">
                 <div class="message-body">
                   <a href="javascript:void(0)" class="dropdown-item">
-                    Item 1
+                    <div class="d-flex align-items-center">
+                      <div class="bg-light rounded-circle p-2 me-3">
+                        <i class="ti ti-shopping-cart text-primary"></i>
+                      </div>
+                      <div>
+                        <h6 class="mb-1">New Order Received</h6>
+                        <p class="mb-0 text-muted">Just now</p>
+                      </div>
+                    </div>
                   </a>
                   <a href="javascript:void(0)" class="dropdown-item">
-                    Item 2
+                    <div class="d-flex align-items-center">
+                      <div class="bg-light rounded-circle p-2 me-3">
+                        <i class="ti ti-user-plus text-success"></i>
+                      </div>
+                      <div>
+                        <h6 class="mb-1">New customer registered</h6>
+                        <p class="mb-0 text-muted">15 minutes ago</p>
+                      </div>
+                    </div>
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a href="javascript:void(0)" class="dropdown-item text-center text-primary">
+                    View all notifications
                   </a>
                 </div>
               </div>
@@ -1852,9 +283,13 @@
           </ul>
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-               
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="ti ti-help fs-5"></i>
+                </a>
+              </li>
               <li class="nav-item dropdown">
-                <a class="nav-link " href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                <a class="nav-link" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                   aria-expanded="false">
                   <img src="{{asset('admin/assets/images/profile/user-1.jpg')}}" alt="" width="35" height="35" class="rounded-circle">
                 </a>
@@ -1865,13 +300,14 @@
                       <p class="mb-0 fs-3">My Profile</p>
                     </a>
                     <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-mail fs-6"></i>
-                      <p class="mb-0 fs-3">My Account</p>
+                      <i class="ti ti-settings fs-6"></i>
+                      <p class="mb-0 fs-3">Account Settings</p>
                     </a>
                     <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-list-check fs-6"></i>
-                      <p class="mb-0 fs-3">My Task</p>
+                      <i class="ti ti-bell fs-6"></i>
+                      <p class="mb-0 fs-3">Notifications</p>
                     </a>
+                    <div class="dropdown-divider"></div>
                     <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
                   </div>
                 </div>
@@ -1880,249 +316,252 @@
           </div>
         </nav>
       </header>
-      <!--  Header End -->
+      <!-- Header End -->
+      
       <div class="body-wrapper-inner">
         <div class="container-fluid">
-          <!--  Row 1 -->
+          <!-- Dashboard Stats -->
+          <div class="row">
+            <div class="col-lg-3 col-sm-6">
+              <div class="card dashboard-card bg-primary text-white mb-4">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h6 class="card-title">Total Sales</h6>
+                      <h2 class="mb-0">$24,895</h2>
+                      <p class="small mb-0"><i class="ti ti-arrow-up me-1"></i> 18% increase</p>
+                    </div>
+                    <div class="bg-white rounded-circle p-3">
+                      <i class="ti ti-shopping-cart text-primary fs-4"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+              <div class="card dashboard-card bg-success text-white mb-4">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h6 class="card-title">Customers</h6>
+                      <h2 class="mb-0">1,258</h2>
+                      <p class="small mb-0"><i class="ti ti-arrow-up me-1"></i> 12% increase</p>
+                    </div>
+                    <div class="bg-white rounded-circle p-3">
+                      <i class="ti ti-users text-success fs-4"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+              <div class="card dashboard-card bg-info text-white mb-4">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h6 class="card-title">Orders</h6>
+                      <h2 class="mb-0">425</h2>
+                      <p class="small mb-0"><i class="ti ti-arrow-up me-1"></i> 8% increase</p>
+                    </div>
+                    <div class="bg-white rounded-circle p-3">
+                      <i class="ti ti-shopping-bag text-info fs-4"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+              <div class="card dashboard-card bg-warning text-white mb-4">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h6 class="card-title">Revenue</h6>
+                      <h2 class="mb-0">$18,256</h2>
+                      <p class="small mb-0"><i class="ti ti-arrow-up me-1"></i> 15% increase</p>
+                    </div>
+                    <div class="bg-white rounded-circle p-3">
+                      <i class="ti ti-currency-dollar text-warning fs-4"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Main Content Row -->
           <div class="row">
             <div class="col-lg-8">
-              <div class="card w-100">
+              <div class="card dashboard-card mb-4">
                 <div class="card-body">
                   <div class="d-md-flex align-items-center">
                     <div>
                       <h4 class="card-title">Sales Overview</h4>
                       <p class="card-subtitle">
-                        Ample admin Vs Pixel admin
+                        Monthly revenue performance
                       </p>
                     </div>
                     <div class="ms-auto">
-                      <ul class="list-unstyled mb-0">
-                        <li class="list-inline-item text-primary">
-                          <span class="round-8 text-bg-primary rounded-circle me-1 d-inline-block"></span>
-                          Ample
-                        </li>
-                        <li class="list-inline-item text-info">
-                          <span class="round-8 text-bg-info rounded-circle me-1 d-inline-block"></span>
-                          Pixel Admin
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div id="sales-overview" class="mt-4 mx-n6"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="card overflow-hidden">
-                <div class="card-body pb-0">
-                  <div class="d-flex align-items-start">
-                    <div>
-                      <h4 class="card-title">Weekly Stats</h4>
-                      <p class="card-subtitle">Average sales</p>
-                    </div>
-                    <div class="ms-auto">
-                      <div class="dropdown">
-                        <a href="javascript:void(0)" class="text-muted" id="year1-dropdown" data-bs-toggle="dropdown"
-                          aria-expanded="false">
-                          <i class="ti ti-dots fs-7"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="year1-dropdown">
-                          <li>
-                            <a class="dropdown-item" href="javascript:void(0)">Action</a>
-                          </li>
-                          <li>
-                            <a class="dropdown-item" href="javascript:void(0)">Another action</a>
-                          </li>
-                          <li>
-                            <a class="dropdown-item" href="javascript:void(0)">Something else here</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mt-4 pb-3 d-flex align-items-center">
-                    <span class="btn btn-primary rounded-circle round-48 hstack justify-content-center">
-                      <i class="ti ti-shopping-cart fs-6"></i>
-                    </span>
-                    <div class="ms-3">
-                      <h5 class="mb-0 fw-bolder fs-4">Top Sales</h5>
-                      <span class="text-muted fs-3">Johnathan Doe</span>
-                    </div>
-                    <div class="ms-auto">
-                      <span class="badge bg-secondary-subtle text-muted">+68%</span>
-                    </div>
-                  </div>
-                  <div class="py-3 d-flex align-items-center">
-                    <span class="btn btn-warning rounded-circle round-48 hstack justify-content-center">
-                      <i class="ti ti-star fs-6"></i>
-                    </span>
-                    <div class="ms-3">
-                      <h5 class="mb-0 fw-bolder fs-4">Best Seller</h5>
-                      <span class="text-muted fs-3">MaterialPro Admin</span>
-                    </div>
-                    <div class="ms-auto">
-                      <span class="badge bg-secondary-subtle text-muted">+68%</span>
-                    </div>
-                  </div>
-                  <div class="py-3 d-flex align-items-center">
-                    <span class="btn btn-success rounded-circle round-48 hstack justify-content-center">
-                      <i class="ti ti-message-dots fs-6"></i>
-                    </span>
-                    <div class="ms-3">
-                      <h5 class="mb-0 fw-bolder fs-4">Most Commented</h5>
-                      <span class="text-muted fs-3">Ample Admin</span>
-                    </div>
-                    <div class="ms-auto">
-                      <span class="badge bg-secondary-subtle text-muted">+68%</span>
-                    </div>
-                  </div>
-                  <div class="pt-3 mb-7 d-flex align-items-center">
-                    <span class="btn btn-secondary rounded-circle round-48 hstack justify-content-center">
-                      <i class="ti ti-diamond fs-6"></i>
-                    </span>
-                    <div class="ms-3">
-                      <h5 class="mb-0 fw-bolder fs-4">Top Budgets</h5>
-                      <span class="text-muted fs-3">Sunil Joshi</span>
-                    </div>
-                    <div class="ms-auto">
-                      <span class="badge bg-secondary-subtle text-muted">+15%</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="card">
-                <div class="card-body">
-                  <div class="d-md-flex align-items-center">
-                    <div>
-                      <h4 class="card-title">Products Performance</h4>
-                      <p class="card-subtitle">
-                        Ample Admin Vs Pixel Admin
-                      </p>
-                    </div>
-                    <div class="ms-auto mt-3 mt-md-0">
                       <select class="form-select theme-select border-0" aria-label="Default select example">
-                        <option value="1">March 2025</option>
-                        <option value="2">March 2025</option>
-                        <option value="3">March 2025</option>
+                        <option value="1">Last 7 Days</option>
+                        <option value="2" selected>Last 30 Days</option>
+                        <option value="3">Last 90 Days</option>
                       </select>
                     </div>
                   </div>
+                  <div id="sales-overview" class="mt-4 mx-n6" style="min-height: 300px;">
+                    <!-- Chart would be rendered here -->
+                    <div class="d-flex align-items-center justify-content-center h-100">
+                      <div class="text-center">
+                        <i class="ti ti-chart-line fs-1 text-muted"></i>
+                        <p class="mt-2 text-muted">Sales chart would appear here</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-lg-4">
+              <div class="card dashboard-card mb-4">
+                <div class="card-body">
+                  <h4 class="card-title">Top Selling Products</h4>
+                  <div class="mt-4">
+                    <div class="d-flex align-items-center mb-4">
+                      <div class="bg-light rounded p-2 me-3">
+                        <i class="ti ti-device-laptop text-primary fs-5"></i>
+                      </div>
+                      <div class="flex-grow-1">
+                        <h6 class="mb-1">Gaming Laptop</h6>
+                        <p class="mb-0 text-muted">$1,200 × 45 sold</p>
+                      </div>
+                      <div class="bg-light-primary text-primary px-2 py-1 rounded">
+                        $54,000
+                      </div>
+                    </div>
+                    
+                    <div class="d-flex align-items-center mb-4">
+                      <div class="bg-light rounded p-2 me-3">
+                        <i class="ti ti-device-mobile text-success fs-5"></i>
+                      </div>
+                      <div class="flex-grow-1">
+                        <h6 class="mb-1">Smartphone</h6>
+                        <p class="mb-0 text-muted">$800 × 68 sold</p>
+                      </div>
+                      <div class="bg-light-success text-success px-2 py-1 rounded">
+                        $54,400
+                      </div>
+                    </div>
+                    
+                    <div class="d-flex align-items-center mb-4">
+                      <div class="bg-light rounded p-2 me-3">
+                        <i class="ti ti-headphones text-info fs-5"></i>
+                      </div>
+                      <div class="flex-grow-1">
+                        <h6 class="mb-1">Wireless Headphones</h6>
+                        <p class="mb-0 text-muted">$150 × 120 sold</p>
+                      </div>
+                      <div class="bg-light-info text-info px-2 py-1 rounded">
+                        $18,000
+                      </div>
+                    </div>
+                    
+                    <div class="d-flex align-items-center">
+                      <div class="bg-light rounded p-2 me-3">
+                        <i class="ti ti-watch text-warning fs-5"></i>
+                      </div>
+                      <div class="flex-grow-1">
+                        <h6 class="mb-1">Smart Watch</h6>
+                        <p class="mb-0 text-muted">$250 × 62 sold</p>
+                      </div>
+                      <div class="bg-light-warning text-warning px-2 py-1 rounded">
+                        $15,500
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Recent Orders Row -->
+          <div class="row">
+            <div class="col-12">
+              <div class="card dashboard-card">
+                <div class="card-body">
+                  <div class="d-md-flex align-items-center">
+                    <div>
+                      <h4 class="card-title">Recent Orders</h4>
+                      <p class="card-subtitle">
+                        Latest customer orders
+                      </p>
+                    </div>
+                    <div class="ms-auto mt-3 mt-md-0">
+                      <button class="btn btn-primary">
+                        <i class="ti ti-plus me-1"></i> Add New Order
+                      </button>
+                    </div>
+                  </div>
                   <div class="table-responsive mt-4">
-                    <table class="table mb-0 text-nowrap varient-table align-middle fs-3">
+                    <table class="table table-hover">
                       <thead>
                         <tr>
-                          <th scope="col" class="px-0 text-muted">
-                            Assigned
-                          </th>
-                          <th scope="col" class="px-0 text-muted">Name</th>
-                          <th scope="col" class="px-0 text-muted">
-                            Priority
-                          </th>
-                          <th scope="col" class="px-0 text-muted text-end">
-                            Budget
-                          </th>
+                          <th>Order ID</th>
+                          <th>Customer</th>
+                          <th>Date</th>
+                          <th>Amount</th>
+                          <th>Status</th>
+                          <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td class="px-0">
-                            <div class="d-flex align-items-center">
-                              <img src="{{asset('admin/assets/images/profile/user-3.jpg')}}" class="rounded-circle" width="40"
-                                alt="flexy" />
-                              <div class="ms-3">
-                                <h6 class="mb-0 fw-bolder">Sunil Joshi</h6>
-                                <span class="text-muted">Web Designer</span>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="px-0">Elite Admin</td>
-                          <td class="px-0">
-                            <span class="badge bg-info">Low</span>
-                          </td>
-                          <td class="px-0 text-dark fw-medium text-end">
-                            $3.9K
+                          <td>#ORD-7582</td>
+                          <td>John Smith</td>
+                          <td>24 Oct 2023</td>
+                          <td>$1,245</td>
+                          <td><span class="badge bg-success">Completed</span></td>
+                          <td>
+                            <button class="btn btn-sm btn-outline-primary">View</button>
                           </td>
                         </tr>
                         <tr>
-                          <td class="px-0">
-                            <div class="d-flex align-items-center">
-                              <img src="{{asset('admin/assets/images/profile/user-5.jpg')}}" class="rounded-circle" width="40"
-                                alt="flexy" />
-                              <div class="ms-3">
-                                <h6 class="mb-0 fw-bolder">
-                                  Andrew McDownland
-                                </h6>
-                                <span class="text-muted">Project Manager</span>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="px-0">Real Homes WP Theme</td>
-                          <td class="px-0">
-                            <span class="badge text-bg-primary">Medium</span>
-                          </td>
-                          <td class="px-0 text-dark fw-medium text-end">
-                            $24.5K
+                          <td>#ORD-7581</td>
+                          <td>Emma Johnson</td>
+                          <td>23 Oct 2023</td>
+                          <td>$845</td>
+                          <td><span class="badge bg-warning">Pending</span></td>
+                          <td>
+                            <button class="btn btn-sm btn-outline-primary">View</button>
                           </td>
                         </tr>
                         <tr>
-                          <td class="px-0">
-                            <div class="d-flex align-items-center">
-                              <img src="{{asset('admin/assets/images/profile/user-6.jpg')}}" class="rounded-circle" width="40"
-                                alt="flexy" />
-                              <div class="ms-3">
-                                <h6 class="mb-0 fw-bolder">
-                                  Christopher Jamil
-                                </h6>
-                                <span class="text-muted">SEO Manager</span>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="px-0">MedicalPro WP Theme</td>
-                          <td class="px-0">
-                            <span class="badge bg-warning">Hight</span>
-                          </td>
-                          <td class="px-0 text-dark fw-medium text-end">
-                            $12.8K
+                          <td>#ORD-7580</td>
+                          <td>Michael Brown</td>
+                          <td>23 Oct 2023</td>
+                          <td>$2,145</td>
+                          <td><span class="badge bg-info">Processing</span></td>
+                          <td>
+                            <button class="btn btn-sm btn-outline-primary">View</button>
                           </td>
                         </tr>
                         <tr>
-                          <td class="px-0">
-                            <div class="d-flex align-items-center">
-                              <img src="{{asset('admin/assets/images/profile/user-7.jpg')}}" class="rounded-circle" width="40"
-                                alt="flexy" />
-                              <div class="ms-3">
-                                <h6 class="mb-0 fw-bolder">Nirav Joshi</h6>
-                                <span class="text-muted">Frontend Engineer</span>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="px-0">Hosting Press HTML</td>
-                          <td class="px-0">
-                            <span class="badge bg-danger">Low</span>
-                          </td>
-                          <td class="px-0 text-dark fw-medium text-end">
-                            $2.4K
+                          <td>#ORD-7579</td>
+                          <td>Sarah Wilson</td>
+                          <td>22 Oct 2023</td>
+                          <td>$925</td>
+                          <td><span class="badge bg-success">Completed</span></td>
+                          <td>
+                            <button class="btn btn-sm btn-outline-primary">View</button>
                           </td>
                         </tr>
                         <tr>
-                          <td class="px-0">
-                            <div class="d-flex align-items-center">
-                              <img src="{{asset('admin/assets/images/profile/user-8.jpg')}}" class="rounded-circle" width="40"
-                                alt="flexy" />
-                              <div class="ms-3">
-                                <h6 class="mb-0 fw-bolder">Micheal Doe</h6>
-                                <span class="text-muted">Content Writer</span>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="px-0">Helping Hands WP Theme</td>
-                          <td class="px-0">
-                            <span class="badge bg-success">Low</span>
-                          </td>
-                          <td class="px-0 text-dark fw-medium text-end">
-                            $9.3K
+                          <td>#ORD-7578</td>
+                          <td>David Miller</td>
+                          <td>22 Oct 2023</td>
+                          <td>$1,575</td>
+                          <td><span class="badge bg-danger">Cancelled</span></td>
+                          <td>
+                            <button class="btn btn-sm btn-outline-primary">View</button>
                           </td>
                         </tr>
                       </tbody>
@@ -2131,243 +570,16 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6">
-              <!-- Card -->
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title mb-0">Recent Comments</h4>
-                </div>
-                <div class="comment-widgets scrollable mb-2 common-widget" style="height: 465px" data-simplebar="">
-                  <!-- Comment Row -->
-                  <div class="d-flex flex-row comment-row border-bottom p-3 gap-3">
-                    <div>
-                      <span><img src="{{asset('admin/assets/images/profile/user-3.jpg')}}" class="rounded-circle" alt="user"
-                          width="50" /></span>
-                    </div>
-                    <div class="comment-text w-100">
-                      <h6 class="fw-medium">James Anderson</h6>
-                      <p class="mb-1 fs-2 text-muted">
-                        Lorem Ipsum is simply dummy text of the printing and
-                        type etting industry
-                      </p>
-                      <div class="comment-footer mt-2">
-                        <div class="d-flex align-items-center">
-                          <span class="
-                              badge
-                              bg-info-subtle
-                              text-info
-                              
-                            ">Pending</span>
-                          <span class="action-icons">
-                            <a href="javascript:void(0)" class="ps-3"><i class="ti ti-edit fs-5"></i></a>
-                            <a href="javascript:void(0)" class="ps-3"><i class="ti ti-check fs-5"></i></a>
-                            <a href="javascript:void(0)" class="ps-3"><i class="ti ti-heart fs-5"></i></a>
-                          </span>
-                        </div>
-                        <span class="
-                            text-muted
-                            ms-auto
-                            fw-normal
-                            fs-2
-                            d-block
-                            mt-2
-                            text-end
-                          ">April 14, 2025</span>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Comment Row -->
-                  <div class="d-flex flex-row comment-row border-bottom active p-3 gap-3">
-                    <div>
-                      <span><img src="{{asset('admin/assets/images/profile/user-5.jpg')}}" class="rounded-circle" alt="user"
-                          width="50" /></span>
-                    </div>
-                    <div class="comment-text active w-100">
-                      <h6 class="fw-medium">Michael Jorden</h6>
-                      <p class="mb-1 fs-2 text-muted">
-                        Lorem Ipsum is simply dummy text of the printing and
-                        type setting industry.
-                      </p>
-                      <div class="comment-footer mt-2">
-                        <div class="d-flex align-items-center">
-                          <span class="
-                              badge
-                              bg-success-subtle
-                              text-success
-                              
-                            ">Approved</span>
-                          <span class="action-icons active">
-                            <a href="javascript:void(0)" class="ps-3"><i class="ti ti-edit fs-5"></i></a>
-                            <a href="javascript:void(0)" class="ps-3"><i class="ti ti-circle-x fs-5"></i></a>
-                            <a href="javascript:void(0)" class="ps-3"><i class="ti ti-heart text-danger fs-5"></i></a>
-                          </span>
-                        </div>
-                        <span class="
-                            text-muted
-                            ms-auto
-                            fw-normal
-                            fs-2
-                            text-end
-                            mt-2
-                            d-block
-                          ">April 14, 2025</span>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Comment Row -->
-                  <div class="d-flex flex-row comment-row border-bottom p-3 gap-3">
-                    <div>
-                      <span><img src="{{asset('admin/assets/images/profile/user-6.jpg')}}" class="rounded-circle" alt="user"
-                          width="50" /></span>
-                    </div>
-                    <div class="comment-text w-100">
-                      <h6 class="fw-medium">Johnathan Doeting</h6>
-                      <p class="mb-1 fs-2 text-muted">
-                        Lorem Ipsum is simply dummy text of the printing and
-                        type setting industry.
-                      </p>
-                      <div class="comment-footer mt-2">
-                        <div class="d-flex align-items-center">
-                          <span class="
-                              badge
-                              bg-danger-subtle
-                              text-danger
-                              
-                            ">Rejected</span>
-                          <span class="action-icons">
-                            <a href="javascript:void(0)" class="ps-3"><i class="ti ti-edit fs-5"></i></a>
-                            <a href="javascript:void(0)" class="ps-3"><i class="ti ti-check fs-5"></i></a>
-                            <a href="javascript:void(0)" class="ps-3"><i class="ti ti-heart fs-5"></i></a>
-                          </span>
-                        </div>
-                        <span class="
-                            text-muted
-                            ms-auto
-                            fw-normal
-                            fs-2
-                            d-block
-                            mt-2
-                            text-end
-                          ">April 14, 2025</span>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Comment Row -->
-                  <div class="d-flex flex-row comment-row p-3 gap-3">
-                    <div>
-                      <span><img src="{{asset('admin/assets/images/profile/user-4.jpg')}}" class="rounded-circle" alt="user"
-                          width="50" /></span>
-                    </div>
-                    <div class="comment-text w-100">
-                      <h6 class="fw-medium">James Anderson</h6>
-                      <p class="mb-1 fs-2 text-muted">
-                        Lorem Ipsum is simply dummy text of the printing and
-                        type setting industry.
-                      </p>
-                      <div class="comment-footer mt-2">
-                        <div class="d-flex align-items-center">
-                          <span class="
-                              badge
-                              bg-info-subtle
-                              text-info
-                              
-                            ">Pending</span>
-                          <span class="action-icons">
-                            <a href="javascript:void(0)" class="ps-3"><i class="ti ti-edit fs-5"></i></a>
-                            <a href="javascript:void(0)" class="ps-3"><i class="ti ti-check fs-5"></i></a>
-                            <a href="javascript:void(0)" class="ps-3"><i class="ti ti-heart fs-5"></i></a>
-                          </span>
-                        </div>
-                        <span class="
-                            text-muted
-                            ms-auto
-                            fw-normal
-                            fs-2
-                            d-block
-                            text-end
-                            mt-2
-                          ">April 14, 2025</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="card">
-                <div class="card-body">
-                  <div class="d-flex align-items-center">
-                    <h4 class="card-title mb-0">Weather Report</h4>
-                    <select class="form-select w-auto ms-auto">
-                      <option selected="">Today</option>
-                      <option value="1">Weekly</option>
-                    </select>
-                  </div>
-                  <div class="d-flex align-items-center flex-row mt-4">
-                    <div class="p-2 display-5 text-primary">
-                      <i class="ti ti-cloud-snow"></i>
-                      <span>73<sup>°</sup></span>
-                    </div>
-                    <div class="p-2">
-                      <h3 class="mb-0">Saturday</h3>
-                      <small>Ahmedabad, India</small>
-                    </div>
-                  </div>
-                  <table class="table table-borderless">
-                    <tbody>
-                      <tr>
-                        <td>Wind</td>
-                        <td class="fw-medium">ESE 17 mph</td>
-                      </tr>
-                      <tr>
-                        <td>Humidity</td>
-                        <td class="fw-medium">83%</td>
-                      </tr>
-                      <tr>
-                        <td>Pressure</td>
-                        <td class="fw-medium">28.56 in</td>
-                      </tr>
-                      <tr>
-                        <td>Cloud Cover</td>
-                        <td class="fw-medium">78%</td>
-                      </tr>
-                      <tr>
-                        <td>Ceiling</td>
-                        <td class="fw-medium">25760 ft</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <hr />
-                  <ul class="list-unstyled row text-center city-weather-days mb-0">
-                    <li class="col">
-                      <i class="ti ti-sun-high fs-4"></i><span>09:30</span>
-                      <h3 class="mb-0 fs-6 lh-base">70<sup>°</sup></h3>
-                    </li>
-                    <li class="col">
-                      <i class="ti ti-cloud fs-4"></i><span>11:30</span>
-                      <h3 class="mb-0 fs-6 lh-base">72<sup>°</sup></h3>
-                    </li>
-                    <li class="col">
-                      <i class="ti ti-cloud-rain fs-4"></i><span>13:30</span>
-                      <h3 class="mb-0 fs-6 lh-base">75<sup>°</sup></h3>
-                    </li>
-                    <li class="col">
-                      <i class="ti ti-cloud-snow fs-4"></i><span>15:30</span>
-                      <h3 class="mb-0 fs-6 lh-base">76<sup>°</sup></h3>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
           </div>
+          
           <div class="py-6 px-6 text-center">
-            <p class="mb-0 fs-4">Design and Developed by <a href="#"
-                class="pe-1 text-primary text-decoration-underline">Wrappixel.com</a> Distributed by <a href="https://themewagon.com" target="_blank" >ThemeWagon</a></p>
+            <p class="mb-0 fs-4">© 2023 Online Shopping Admin Panel. Designed by <a href="#" class="pe-1 text-primary text-decoration-underline">Your Team</a></p>
           </div>
         </div>
       </div>
     </div>
   </div>
+
   <script src="{{asset('admin/assets/libs/jquery/dist/jquery.min.js')}}"></script>
   <script src="{{asset('admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{asset('admin/assets/js/sidebarmenu.js')}}"></script>
@@ -2375,8 +587,20 @@
   <script src="{{asset('admin/assets/libs/apexcharts/dist/apexcharts.min.js')}}"></script>
   <script src="{{asset('admin/assets/libs/simplebar/dist/simplebar.js')}}"></script>
   <script src="{{asset('admin/assets/js/dashboard.js')}}"></script>
-  <!-- solar icons -->
-  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+  
+  <script>
+    // Simple sidebar toggle functionality for mobile
+    document.getElementById('headerCollapse').addEventListener('click', function() {
+      document.querySelector('.left-sidebar').classList.toggle('show');
+    });
+    
+    // Active menu item handling
+    document.querySelectorAll('.sidebar-item').forEach(item => {
+      item.addEventListener('click', function() {
+        document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
 </body>
-
 </html>

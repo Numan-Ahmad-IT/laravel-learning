@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 
 class VendorController extends Controller
 {
-    public function Vendor(){
+    public function Vendor()
+    {
         return view('site.index');
+        
     }
 }

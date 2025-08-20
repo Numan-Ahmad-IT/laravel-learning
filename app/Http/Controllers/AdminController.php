@@ -10,8 +10,10 @@ class AdminController extends Controller
      * Show the admin dashboard.
      */
     public function Admin()
+    
     {
         return view('admin.app');
+
     }
 
 }

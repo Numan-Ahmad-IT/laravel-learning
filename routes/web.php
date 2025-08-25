@@ -22,13 +22,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-// Route::get('index', function () {
-//     return view('site.index');
-// })->name('index');
 
-// Route::get('app', function () {
-//     return view('admin.app');
-// })->name('app');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/app', [App\Http\Controllers\AdminController::class, 'Admin'])->name('app');
